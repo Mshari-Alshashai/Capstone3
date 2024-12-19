@@ -8,11 +8,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReportIDTO {
-    @NotNull(message = "sender is mandatory")
-    private Integer sender;
-    @NotNull(message = "offender is mandatory")
-    private Integer offender;
+   private Integer sender;
     @NotEmpty(message = "reason is mandatory")
     private String reason;
+    @NotEmpty(message = "reason is mandatory")
+    private String offenderType;
 
 }

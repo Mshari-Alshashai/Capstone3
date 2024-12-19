@@ -275,13 +275,13 @@ public class ContributorService {
         return feedbackService.convertFeedBackToODTo(feedbacks);
     }
 //Bayan
-    public void report (Integer contributor_id, ReportIDTO reportIDTO){
+    public void report (Integer contributor_id,Integer offender, ReportIDTO reportIDTO){
         Contributor contributor = contributorRepository.findContributorById(contributor_id);
         if(contributor==null){
             throw new ApiException("contributor not found");
         }
         if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
-        reportService.createReport(reportIDTO);
+        reportService.createReport(contributor_id,offender,reportIDTO);
     }
 //Bayan
     public List<ReportODTO> getReportsSentByContributor (Integer contributor_id){
