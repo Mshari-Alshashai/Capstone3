@@ -4,6 +4,6 @@ API
 
 ControllerAdvice
 
-ExtraEndpoints: addArtifact - assignTag - assignCategory - addRecord - addImage - addOwnershipHistory - addCertificate - requestArtifactCertification - viewBorrowingRequests - decideOnBorrowRequest - giveFeedbackOnBorrower - viewReceivedFeedbacks- banOrgina
+ExtraEndpoints: addArtifact - assignTag - assignCategory - addRecord - addImage - addOwnershipHistory - addCertificate - requestArtifactCertification - viewBorrowingRequests - decideOnBorrowRequest - giveFeedbackOnBorrower - viewReceivedFeedbacks- banOrganization
 
-![Untitled_Diagram drawio](https://github.com/user-attachments/assets/6f4fece6-c740-4c02-a308-2ae465035b2a)
+![ClassDiagram](https://github.com/user-attachments/assets/52e3b7ee-1a2f-4143-a285-2876799f725d)
