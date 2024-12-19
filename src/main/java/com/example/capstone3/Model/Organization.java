@@ -14,7 +14,7 @@ import org.hibernate.annotations.Check;
 
 import java.time.LocalDate;
 import java.util.Set;
-
+//Bayan
 @Entity
 @Getter
 @Setter
@@ -53,8 +53,6 @@ public class Organization {
     private Set<Request> requests;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
     private Set<Feedback> feedbacks;
-    @ManyToMany(mappedBy = "organizations")
-    private Set<Notification> notifications;
     @OneToMany(mappedBy = "organization")
     @JsonIgnore
     private Set<Report> reports;

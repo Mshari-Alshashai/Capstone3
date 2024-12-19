@@ -1,6 +1,6 @@
 package com.example.capstone3.Service;
 
-import com.example.capstone3.API.ApiException;
+import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.*;
 import com.example.capstone3.Model.*;
 import com.example.capstone3.Repository.*;
@@ -23,7 +23,7 @@ public class ResearcherService {
     private final RequestRepository requestRepository;
     private final ReportService reportService;
     private final ReportRepository reportRepository;
-
+//Waleed
     public List<ResearcherODTO> getAllResearchers(){
         return convertResearcherToDTO(researcherRepository.findAllApprovedResearcher());
     }

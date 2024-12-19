@@ -1,6 +1,6 @@
 package com.example.capstone3.Service;
 
-import com.example.capstone3.API.ApiException;
+import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.EventDTO;
 import com.example.capstone3.Model.Artifact;
 import com.example.capstone3.Model.Event;
@@ -31,7 +31,7 @@ public class EventService {
 public List<EventDTO> getAll (){
     return convertEventToDTO(eventRepository.findAll());
 }
-
+//Waleed
     public void addEvent ( Integer organization_id ,Event event){
         Organization organization =organizationRepository.findOrganizationById(organization_id);
         if (organization == null) {

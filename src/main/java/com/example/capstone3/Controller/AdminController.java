@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/admin")
 @RequiredArgsConstructor
 public class AdminController {
-
+//Waleed
     private final AdminService adminService;
 
     @GetMapping("/get-pending-researchers/{id}")

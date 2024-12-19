@@ -1,6 +1,6 @@
 package com.example.capstone3.Service;
 
-import com.example.capstone3.API.ApiException;
+import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.Model.Artifact;
 import com.example.capstone3.Model.BanList;
 import com.example.capstone3.Model.Organization;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+//Waleed
 @Service
 @RequiredArgsConstructor
 public class AdminService {

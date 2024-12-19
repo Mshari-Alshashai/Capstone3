@@ -1,6 +1,6 @@
 package com.example.capstone3.Service;
 
-import com.example.capstone3.API.ApiException;
+import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.*;
 import com.example.capstone3.Model.Organization;
 import com.example.capstone3.Model.Request;
@@ -73,7 +73,7 @@ for(Organization o:organizations){
 }
 return  organizationODTOs;
     }
-
+//Waleed
     public void giveFeedback(Integer requestId, FeedbackDTO feedbackDTO) {
         Request request = requestRepository.findRequestById(requestId);
         if (request==null) throw new ApiException("Request not found");

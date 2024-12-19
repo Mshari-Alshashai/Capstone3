@@ -1,7 +1,7 @@
 package com.example.capstone3.Controller;
 
 
-import com.example.capstone3.API.ApiResponse;
+import com.example.capstone3.Api.ApiResponse;
 import com.example.capstone3.DTO.FeedbackDTO;
 import com.example.capstone3.DTO.OrganizationIDTO;
 import com.example.capstone3.DTO.ReportIDTO;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OrganizationController {
     private final OrganizationService organizationService;
-
+//Bayan
 @GetMapping("/get")
     public ResponseEntity getAll (){
         return ResponseEntity.status(200).body(organizationService.getAllOrganizations());

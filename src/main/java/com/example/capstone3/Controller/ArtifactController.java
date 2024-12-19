@@ -1,6 +1,6 @@
 package com.example.capstone3.Controller;
 
-import com.example.capstone3.API.ApiResponse;
+import com.example.capstone3.Api.ApiResponse;
 import com.example.capstone3.DTO.ArtifactIDTO;
 import com.example.capstone3.Model.Artifact;
 import com.example.capstone3.Service.ArtifactService;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/artifact")
 @RequiredArgsConstructor
+//Mshari
 public class ArtifactController {
 
     private final ArtifactService artifactService;

@@ -1,6 +1,6 @@
 package com.example.capstone3.Controller;
 
-import com.example.capstone3.API.ApiResponse;
+import com.example.capstone3.Api.ApiResponse;
 import com.example.capstone3.Model.Event;
 import com.example.capstone3.Service.EventService;
 import jakarta.validation.Valid;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class EventController {
     private final EventService eventService;
-
+//Bayan
 
     @GetMapping("/get")
     public ResponseEntity get (){

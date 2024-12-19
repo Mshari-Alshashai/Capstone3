@@ -11,7 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-
+//Waleed
 @Getter
 @Setter
 @Entity
@@ -57,9 +57,6 @@ public class Researcher {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "researcher")
     private Set<Feedback> feedbacks;
-
-    @ManyToMany(mappedBy = "researchers")
-    private Set<Notification> notifications;
 
     @OneToMany(mappedBy = "researcher")
     @JsonIgnore
