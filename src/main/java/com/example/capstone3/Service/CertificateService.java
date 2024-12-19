@@ -46,6 +46,9 @@ public class CertificateService {
         old.setExpirationDate(certificate.getExpirationDate());
         old.setRegistrationNumber(certificate.getRegistrationNumber());
         old.setUrl(certificate.getUrl());
+        Artifact artifact = artifactRepository.findArtifactsById(old.getArtifact().getId());
+        artifact.setStatus("pending");
+        artifactRepository.save(artifact);
         certificateRepository.save(old);
 
     }
@@ -56,7 +59,6 @@ public class CertificateService {
         List<Certificate> expiredCertificate =certificateRepository.findByExpirationDateBefore(LocalDate.now());
         if(!expiredCertificate.isEmpty()){
             certificateRepository.deleteAll(expiredCertificate);
-
         }
     }
 //Bayan

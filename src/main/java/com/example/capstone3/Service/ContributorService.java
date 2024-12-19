@@ -2,8 +2,8 @@ package com.example.capstone3.Service;
 
 import com.example.capstone3.Api.ApiException;
 import com.example.capstone3.DTO.*;
-import com.example.capstone3.Model.*;
 import com.example.capstone3.Model.Record;
+import com.example.capstone3.Model.*;
 import com.example.capstone3.Repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,6 +56,8 @@ public class ContributorService {
 
         if (contributor==null)
             throw new ApiException("Contributor not found");
+        if (contributor.getIsBanned())
+            throw new ApiException("Contributor is banned");
 
         if (!contributor.getEmail().equalsIgnoreCase(contributorIDTO.getEmail())){
             if (contributorRepository.existsByEmail(contributorIDTO.getEmail()))
@@ -88,6 +90,7 @@ public class ContributorService {
         List<ContributorODTO> contributorODTOS=new ArrayList<>();
 
         for (Contributor c:contributors){
+            if (c.getIsBanned()) continue;
             contributorODTOS.add(new ContributorODTO(c.getName(),c.getEmail(),c.getPhoneNumber(),c.getCreatedAt()));
         }
 
@@ -200,11 +203,14 @@ public class ContributorService {
         Artifact artifact = artifactRepository.findArtifactsById(artifactId);
         if (artifact==null) throw new ApiException("Artifact not found");
         if (!artifact.getCertificates().isEmpty()) throw new ApiException("Artifact already certified");
+        if (artifact.getContributor().getIsBanned())
+            throw new ApiException("Contributor is banned");
     }
 
     public List<Request> viewBorrowingRequests(Integer contributorId) {
         Contributor contributor = contributorRepository.findContributorById(contributorId);
         if (contributor==null) throw new ApiException("Contributor not found");
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
 
         List<Request> requests = requestRepository.findRequestsByContributor(contributor);
         if (requests==null) throw new ApiException("Requests not found");
@@ -219,6 +225,9 @@ public class ContributorService {
     public void decideOnBorrowRequest(Integer contributorId, Integer requestId, String decision) {
         Request request = requestRepository.findRequestById(requestId);
         if (request==null) throw new ApiException("Request not found");
+        Contributor contributor = contributorRepository.findContributorById(contributorId);
+        if (contributor==null) throw new ApiException("Contributor not found");
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
 
         if (!request.getContributor().getId().equals(contributorId)) throw new ApiException("Contributor is not the owner of the request");
         if (!request.getDecision().equals("pending")) throw new ApiException("Decision is already made");
@@ -236,6 +245,7 @@ public class ContributorService {
     public void giveFeedbackOnBorrower(Integer contributorId, Integer requestId, FeedbackDTO feedbackDTO) {
         Contributor contributor = contributorRepository.findContributorById(contributorId);
         if (contributor==null) throw new ApiException("Contributor not found");
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
 
         Request request = requestRepository.findRequestById(requestId);
         if (request==null) throw new ApiException("Request not found");
@@ -246,16 +256,10 @@ public class ContributorService {
             throw new ApiException("can't give feedback until end date");
         }
 
-        feedbackDTO.setSenderId(request.getContributor().getId());
+        feedbackDTO.setSenderEmail(request.getContributor().getEmail());
 
-        if (request.getResearcher()==null) feedbackDTO.setReceiverId(request.getOrganization().getId());
-        if (request.getOrganization()==null) feedbackDTO.setReceiverId(request.getResearcher().getId());
-
-        if (request.getOrganization()==null){
-            feedbackDTO.setReceiverId(request.getResearcher().getId());
-        } else if (request.getResearcher()==null) {
-            feedbackDTO.setReceiverId(request.getOrganization().getId());
-        }
+        if (request.getResearcher() == null) feedbackDTO.setReceiverEmail(request.getOrganization().getEmail());
+        if (request.getOrganization() == null) feedbackDTO.setReceiverEmail(request.getResearcher().getEmail());
 
         feedbackDTO.setCreatorType("contributor");
         feedbackDTO.setCreatorId(request.getContributor().getId());
@@ -264,7 +268,10 @@ public class ContributorService {
     }
 
     public List<FeedbackODTO> viewReceivedFeedbacks(Integer id) {
-        List<Feedback> feedbacks = feedbackRepository.findFeedbackByReceiverId(id);
+        Contributor contributor = contributorRepository.findContributorById(id);
+        if (contributor==null) throw new ApiException("Contributor not found");
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
+        List<Feedback> feedbacks = feedbackRepository.findFeedbackByReceiverEmail(contributor.getEmail());
         if (feedbacks==null) throw new ApiException("No feedbacks found");
 
         return feedbackService.convertFeedBackToODTo(feedbacks);
@@ -276,6 +283,7 @@ public class ContributorService {
         if(contributor==null){
             throw new ApiException("contributor not found");
         }
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
         reportService.createReport(reportIDTO);
     }
 //Bayan
@@ -284,6 +292,7 @@ public class ContributorService {
         if(contributor==null){
             throw new ApiException("contributor not found");
         }
+        if (contributor.getIsBanned()) throw new ApiException("Contributor is banned");
         return reportService.convertReportToDTo(reportRepository.findAllBySender(contributor_id));
     }
 
